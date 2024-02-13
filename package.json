@@ -12,6 +12,7 @@
   "dependencies": {
     "@hebilicious/vue-query-nuxt": "^0.3.0",
     "@tanstack/vue-query": "^5.20.2",
+    "@vueuse/nuxt": "^10.7.2",
     "node-vibrant": "^3.2.1-alpha.1",
     "nuxt": "^3.10.1",
     "vue": "^3.4.15",

@@ -138,11 +138,18 @@ export const bookSchema = z.object({
   accessInfo: AccessInfo,
 });
 
-export const booksApiResponseSchema = z.object({
-  kind: z.string(),
-  totalItems: z.number(),
-  items: z.array(bookSchema),
-});
+export const booksApiResponseSchema = z
+  .object({
+    kind: z.string(),
+    totalItems: z.number(),
+    items: z.array(bookSchema),
+  })
+  .optional()
+  .default({
+    kind: "empty",
+    totalItems: 0,
+    items: [],
+  });
 
 export type Book = z.infer<typeof bookSchema>;
 

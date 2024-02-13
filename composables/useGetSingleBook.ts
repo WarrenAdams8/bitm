@@ -12,7 +12,7 @@ export default function (id = "wrOQLV6xB-wC") {
     const response = await fetch(`${BOOKS_URL}/${id}`);
     const data: unknown = await response.json();
 
-    const colorRes = await $fetch("/api/bookColorPalette/kLAoswEACAAJ");
+    const colorRes = await $fetch(`/api/bookColorPalette/${id}`);
 
     const validatedBook = bookSchema.safeParse(data);
 
