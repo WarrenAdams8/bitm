@@ -5,6 +5,11 @@ import type { BookColor } from "~/types/BookColorTypes";
 const BOOKS_URL = "https://www.googleapis.com/books/v1/volumes";
 
 export default function (id = "wrOQLV6xB-wC") {
+  /**
+   * Asynchronous function to retrieve a single book and its color palette.
+   *
+   * @return {Promise<{ book: Book; palette: BookColor; }>} A promise that resolves to an object containing the book and its color palette.
+   */
   const getSingleBook = async (): Promise<{
     book: Book;
     palette: BookColor;

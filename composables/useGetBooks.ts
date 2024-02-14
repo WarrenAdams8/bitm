@@ -5,6 +5,11 @@ const BOOKS_URL = "https://www.googleapis.com/books/v1/volumes";
 const PARAMS = "&maxResults=30&filter=paid-ebooks";
 
 export default function (query = "Harry + Potter") {
+  /**
+   * Get books asynchronously.
+   *
+   * @return {Promise<Book[]>} the array of books
+   */
   const getBooks = async (): Promise<Book[]> => {
     // return empty arr if query is empty
     if (query.length === 0) {
