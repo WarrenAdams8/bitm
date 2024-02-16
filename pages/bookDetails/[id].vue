@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { useWishlistStore } from '@/stores/wishlistStore';
 import { useCartStore } from '@/stores/cartStore';
+import type { Database } from '~/types/supabase';
 
 const store = useWishlistStore()
 const cartStore = useCartStore()
 
 
 const routeParams = useRoute().params
+
+
+const supabase = useSupabaseClient<Database>()
+const user = useSupabaseUser();
 
 const { data, isLoading } = useQuery({
     queryKey: ['books', routeParams],
@@ -27,8 +32,35 @@ const rgbStyle = computed(() => `rgb(${data.value?.palette.Vibrant._rgb[0]}, ${d
  * Adds a book to the wishlist if it exists in the data.
  *
  */
-function addBookToWishlist() {
-    if (data.value?.book) {
+async function addBookToWishlist() {
+
+    if (user?.value?.id && data.value?.book) {
+        try {
+
+            const updates = {
+                user_id: user.value.id,
+                book_id: data.value.book.id,
+                book_info: data.value.book,
+            }
+            //@ts-ignore 
+            const { error } = await supabase.from('wishlist_item')
+                .upsert(updates, { returning: 'minimal' })
+                .eq("user_id", user.value.id)
+
+
+            if (error) {
+                alert("Book already in wishlist");
+                throw error
+            } else {
+                alert("Book added to wishlist");
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    else if (data.value?.book) {
         store.addBookToWishlist(data.value.book)
     }
 }
@@ -74,5 +106,4 @@ function addBookToCart() {
     width: 200px;
     height: 50px;
 }
-
 </style>
