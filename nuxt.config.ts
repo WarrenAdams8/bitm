@@ -6,8 +6,17 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
+    "@nuxtjs/supabase",
   ],
   typescript: {
     strict: true,
+  },
+  supabase: {
+    redirect: false,
+    redirectOptions: {
+      login: "/",
+      callback: "/confirm",
+      exclude: [],
+    },
   },
 });
