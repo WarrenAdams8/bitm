@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      paddleSellerId: "",
+      paddleToken: "",
+    },
+  },
   devtools: { enabled: true },
   modules: [
     "@hebilicious/vue-query-nuxt",
