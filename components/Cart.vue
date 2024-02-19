@@ -4,12 +4,12 @@ import { useCartStore } from '@/stores/cartStore';
 const store = useCartStore()
 const { cart } = storeToRefs(store)
 
-const paddleInit = await usePaddle()
-const paddle = await paddleInit()
+const { $Paddle } = useNuxtApp()
+
 
 function checkout() {
-    if (paddle) {
-        paddle.Checkout.open({
+    if ($Paddle) {
+        $Paddle.Checkout.open({
             items: [
                 {
                     priceId: 'pri_01hpvn9ezm0e5s137pcjk40smj',
@@ -29,7 +29,7 @@ function checkout() {
                 <h2>{{ book.volumeInfo.title }}</h2>
             </div>
         </NuxtLink>
-        <button @click="store.removeBookFromCart(book)">Remove from cart</button>
+        <button  @click="store.removeBookFromCart(book)">Remove from cart</button>
     </div>
     <button @click="checkout">Checkout</button>
 </template>

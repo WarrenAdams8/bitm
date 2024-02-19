@@ -1,18 +1,7 @@
 import { initializePaddle } from "@paddle/paddle-js";
 import type { InitializePaddleOptions, Paddle } from "@paddle/paddle-js";
 
-/**
- * Initializes the paddle object.
- *
- * @return A function thhat needs to be called to get the initialized Paddle instance
- */
-export default function () {
-  /**
-   * Initializes the paddle object.
-   *
-   * @return {Promise<Paddle | undefined>} A Promise that resolves to the initialized Paddle instance, or undefined if initialization fails.
-   */
-
+export default defineNuxtPlugin(async () => {
   const config = useRuntimeConfig();
 
   const paddleInit = async (): Promise<Paddle | undefined> => {
@@ -29,5 +18,19 @@ export default function () {
     );
     return paddle;
   };
-  return paddleInit;
-}
+  const Paddle = await paddleInit();
+
+  Paddle?.Setup({
+    token: config.public.paddleToken,
+    eventCallback: function(data) {
+      console.log(data);
+    }
+    
+  });
+
+  return {
+    provide: {
+      Paddle,
+    },
+  };
+});
