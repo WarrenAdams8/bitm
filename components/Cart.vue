@@ -6,6 +6,8 @@ const { cart } = storeToRefs(store)
 
 const { $Paddle } = useNuxtApp()
 
+const config = useRuntimeConfig()
+
 
 function checkout() {
     if ($Paddle) {
@@ -20,6 +22,9 @@ function checkout() {
     }
 }
 
+const { data } = useFetch('/api/getSubscription/43434')
+
+console.log(data.value)
 </script>
 <template>
     <div v-for="book in cart">
@@ -29,7 +34,10 @@ function checkout() {
                 <h2>{{ book.volumeInfo.title }}</h2>
             </div>
         </NuxtLink>
-        <button  @click="store.removeBookFromCart(book)">Remove from cart</button>
+        <button @click="store.removeBookFromCart(book)">Remove from cart</button>
+    </div>
+    <div v-for="item in data">
+        <pre> {{ item }}</pre>
     </div>
     <button @click="checkout">Checkout</button>
 </template>
