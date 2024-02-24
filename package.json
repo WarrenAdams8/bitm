@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "gen-types": "supabase gen types typescript --linked src > types/supabase.ts"
   },
   "dependencies": {
     "@hebilicious/vue-query-nuxt": "^0.3.0",
