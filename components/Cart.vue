@@ -24,7 +24,6 @@ function checkout() {
 
 const { data } = useFetch('/api/getSubscription/43434')
 
-console.log(data.value)
 </script>
 <template>
     <div v-for="book in cart">

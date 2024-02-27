@@ -1,36 +1,29 @@
 <script setup lang="ts">
+import { collection, doc, getFirestore, deleteDoc } from 'firebase/firestore';
 import type { Book } from '~/types/BookTypes';
-import type { Database } from '~/types/supabase';
 
 const store = useWishlistStore()
 
-const emit = defineEmits(['refresh-data'])
+const user = useCurrentUser();
 
-const supabase = useSupabaseClient<Database>()
-const user = useSupabaseUser();
 
 defineProps<{
     books: Book[]
 }>()
 
-async function removeFromSupabase(id: string) {
-    try {
-
-        if (user?.value?.id) {
-            const { error } = await supabase.from('wishlist_item')
-                .delete()
-                .eq("user_id", user.value.id)
-                .eq('book_id', id)
-
-            emit('refresh-data')
-            if (error) throw error
-        }
-
-    } catch (error) {
-        console.error(error)
+async function removeBookFromFirestore(id: string) {
+    const user = useCurrentUser()
+    const db = getFirestore()
+    if (user?.value?.uid) {
+        const booksCollection = collection(db, `users/${user.value.uid}/wishlistBooks`);
+        const bookDoc = doc(booksCollection, id)
+        await deleteDoc(bookDoc)
     }
-
+    console.log(id)
 }
+
+
+
 </script>
 
 <template>
@@ -41,7 +34,7 @@ async function removeFromSupabase(id: string) {
                 <h2>{{ book.volumeInfo.title }}</h2>
             </div>
         </NuxtLink>
-        <button v-if="user" @click="removeFromSupabase(book.id)">Remove from wishlist</button>
+        <button v-if="user" @click="removeBookFromFirestore(book.id)">Remove from wishlist</button>
         <button v-else @click="store.removeBookFromWishlist(book)">Remove from wishlist</button>
     </div>
 </template>

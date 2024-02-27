@@ -15,17 +15,24 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
-    "@nuxtjs/supabase",
+    "nuxt-vuefire",
   ],
   typescript: {
     strict: true,
   },
-  supabase: {
-    redirect: false,
-    redirectOptions: {
-      login: "/",
-      callback: "/confirm",
-      exclude: [],
+  vuefire: {
+    config: {
+      apiKey: "AIzaSyApJZlVnu2fnjUVcMjZtmhNW8Q5g1yo0WQ",
+      authDomain: "bitm-40798.firebaseapp.com",
+      projectId: "bitm-40798",
+      storageBucket: "bitm-40798.appspot.com",
+      messagingSenderId: "762520880131",
+      appId: "1:762520880131:web:c2189647c5afc48acf7a36",
+      measurementId: "G-TYD8CXF930",
+    },
+    auth: {
+      enabled: true,
+      sessionCookie: true,
     },
   },
 });

@@ -1,8 +1,19 @@
 <script setup lang="ts">
-import logOut from './utils/logOut';
+const auth = useFirebaseAuth()
 
-  
-  const user = useSupabaseUser()
+const signOutUser = async () => {
+  if (auth) {
+    try {
+      await auth.signOut()
+      console.log('User signed out successfully')
+      // Redirect the user to the login page or home page after signing out
+    } catch (error) {
+      console.error('Error signing out:', error)
+    }
+  }
+}
+
+const user = useCurrentUser()
 </script>
 <template>
   <div>
@@ -10,16 +21,17 @@ import logOut from './utils/logOut';
       <NuxtLink to="/">Home</NuxtLink>
       <NuxtLink to="/wishlist">Wishlist</NuxtLink>
       <NuxtLink to="/cart">Cart</NuxtLink>
-      <NuxtLink v-if="!user" to="/login">Login</NuxtLink>
-      <NuxtLink v-if="user" @click="logOut" to="/login">Logout</NuxtLink>
+      <NuxtLink v-if="!user" to="/login">login</NuxtLink>
+      <NuxtLink v-if="user" @click="signOutUser" to="/login">logout</NuxtLink>
+      {{ user?.email }}
     </div>
     <NuxtPage />
   </div>
 </template>
 <style scoped>
-  .nav {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-  }
+.nav {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
 </style>

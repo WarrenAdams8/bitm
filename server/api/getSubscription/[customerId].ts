@@ -1,5 +1,4 @@
 export default defineEventHandler(async (event) => {
-  const customerId = event.context.params;
   const config = useRuntimeConfig();
   const res = await fetch(`https://sandbox-api.paddle.com/subscriptions`, {
     method: "GET",
@@ -11,6 +10,5 @@ export default defineEventHandler(async (event) => {
   });
   const data = await res.json();
 
-  console.log( customerId?.customerId); 
   return data?.data
 });
