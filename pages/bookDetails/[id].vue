@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useWishlistStore } from '@/stores/wishlistStore';
 import { useCartStore } from '@/stores/cartStore';
-import type { Database } from '~/types/supabase';
-import type { Book } from '~/types/BookTypes';
-import { addDoc, collection, doc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 
 const store = useWishlistStore()
 const cartStore = useCartStore()
