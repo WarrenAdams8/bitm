@@ -1,5 +1,5 @@
 <script lang="ts">
-import { GoogleAuthProvider } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 export const googleAuthProvider = new GoogleAuthProvider()
 </script>
@@ -43,13 +43,35 @@ onMounted(() => {
     }
 })
 
+const signUpEmail = ref('')
+const signUpPassword = ref('')
+
+async function handleSubmit(){
+    if (auth){
+        signInWithEmailAndPassword(auth, signUpEmail.value, signUpPassword.value).then((cred) => {
+            if (cred?.user) {
+                alert('Login successful')
+            }
+        }).catch((reason) => {
+            console.error('Failed login', reason)
+        })
+    }
+}
+
 
 </script>
 <template>
     <div class="centered-content">
         <h1>Login</h1>
 
-        <button @click="signinRedirect()">SignIn with Google</button>
+        <form class="form" @submit.prevent="handleSubmit">
+            <input v-model="signUpEmail" type="text" placeholder="Email">
+            <input v-model="signUpPassword" type="password" placeholder="Password">
+            <button type="submit">login</button>
+        </form>
+
+
+        <button @click="signinRedirect()">login with Google</button>
 
         <h3>Dont have an account?</h3>
         <NuxtLink to="/register">Register</NuxtLink>
