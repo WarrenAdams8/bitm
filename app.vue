@@ -21,6 +21,7 @@ const user = useCurrentUser()
       <NuxtLink to="/">Home</NuxtLink>
       <NuxtLink to="/wishlist">Wishlist</NuxtLink>
       <NuxtLink to="/cart">Cart</NuxtLink>
+      <NuxtLink to="/account">Account</NuxtLink>
       <NuxtLink v-if="!user" to="/login">login</NuxtLink>
       <NuxtLink v-if="user" @click="signOutUser" to="/login">logout</NuxtLink>
       {{ user?.email }}

@@ -4,22 +4,9 @@ import { useCartStore } from '@/stores/cartStore';
 const store = useCartStore()
 const { cart } = storeToRefs(store)
 
-const { $Paddle } = useNuxtApp()
-
-const config = useRuntimeConfig()
-
 
 function checkout() {
-    if ($Paddle) {
-        $Paddle.Checkout.open({
-            items: [
-                {
-                    priceId: 'pri_01hpvn9ezm0e5s137pcjk40smj',
-                    quantity: 1
-                }
-            ],
-        })
-    }
+    console.log('checkout')
 }
 
 const { data } = useFetch('/api/getSubscription/43434')
