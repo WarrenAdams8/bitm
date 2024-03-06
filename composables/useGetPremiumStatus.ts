@@ -1,5 +1,3 @@
-import { type FirebaseApp } from "firebase/app";
-// import { getAuth } from "firebase/auth";
 import { useCurrentUser } from "vuefire";
 import {
   collection,
@@ -9,12 +7,12 @@ import {
   where,
 } from "firebase/firestore";
 
-export const getPremiumStatus = async (app: FirebaseApp) => {
-//const auth = getAuth(app);
+export default async function () {
+  const app = useFirebaseApp();
   const user = useCurrentUser();
   const userId = user.value?.uid;
 
-  if (!userId) throw new Error("User not logged in");
+  if (!userId) return false;
 
   const db = getFirestore(app);
   const subscriptionsRef = collection(db, "customers", userId, "subscriptions");
@@ -30,10 +28,10 @@ export const getPremiumStatus = async (app: FirebaseApp) => {
         // In this implementation we only expect one active or trialing subscription to exist.
         // console.log("Subscription snapshot", snapshot.docs.length);
         if (snapshot.docs.length === 0) {
-        //console.log("No active or trialing subscriptions found");
+          //console.log("No active or trialing subscriptions found");
           resolve(false);
         } else {
-        // console.log("Active or trialing subscription found");
+          // console.log("Active or trialing subscription found");
           resolve(true);
         }
         unsubscribe();
@@ -41,4 +39,4 @@ export const getPremiumStatus = async (app: FirebaseApp) => {
       reject
     );
   });
-};
+}
