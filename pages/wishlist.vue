@@ -28,7 +28,7 @@ const { data: books, pending, error } = getBooks()
     <h1>Wishlist</h1>
 
     <ClientOnly>
-        <WishlistItems v-if="user" :books="books as Book[]" />
-        <WishlistItems v-else :books="bookWishlist" />
+        <WishlistItems v-if="user" :books="books as unknown as Book[]" />
+        <WishlistItems v-else :books="bookWishlist as unknown as Book[]" />
    </ClientOnly>
 </template>

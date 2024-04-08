@@ -49,7 +49,7 @@ const { data: outstandingBooks } = getOutstandingBooks()
         <div v-if="user">
             <button v-show="!premiumStatus" @click="upgradeToPremium">Upgrade To Premium</button>
             <button v-show="premiumStatus" @click="manageSubscription">Manage Subscription</button>
-            <h3 v-for="book in outstandingBooks as Book[]">
+            <h3 v-for="book in outstandingBooks as unknown as Book[]">
                 <img :src="book.volumeInfo.imageLinks.smallThumbnail" alt="">
                 {{ book.volumeInfo.title }}
             </h3>
