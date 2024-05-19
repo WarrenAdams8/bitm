@@ -6,7 +6,11 @@ const Swatch = z
     _population: z.number(),
     _hsl: z.array(z.number()),
   })
-  .omit({ _population: true, _hsl: true });
+  .omit({ _population: true, _hsl: true })
+  .transform((swatch) => ({
+    ...swatch,
+    _rgb: `rgb(${swatch._rgb[0]}, ${swatch._rgb[1]}, ${swatch._rgb[2]})`,
+  }));
 
 export const BookColorSchema = z.object({
   Vibrant: Swatch,
@@ -21,21 +25,21 @@ export type BookColor = z.infer<typeof BookColorSchema>;
 
 export const defaultBookPalette = {
   Vibrant: {
-    _rgb: [211, 211, 211],
+    _rgb: 'rgb(211, 211, 211)',
   },
   DarkVibrant: {
-    _rgb: [211, 211, 211],
+    _rgb: 'rgb(211, 211, 211)',
   },
   LightVibrant: {
-    _rgb: [211, 211, 211],
+    _rgb: 'rgb(211, 211, 211)',
   },
   Muted: {
-    _rgb: [211, 211, 211],
+    _rgb: 'rgb(211, 211, 211)',
   },
   DarkMuted: {
-    _rgb: [211, 211, 211],
+    _rgb: 'rgb(211, 211, 211)',
   },
   LightMuted: {
-    _rgb: [211, 211, 211],
+    _rgb: 'rgb(211, 211, 211)',
   },
 };

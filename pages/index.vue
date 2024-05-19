@@ -8,9 +8,9 @@ const { data: books, isLoading } = useQuery({
     queryKey: ['books', debouncedQuery],
     queryFn: () => {
         if (typeof query.value === 'string') {
-            return useGetBooks(query.value)
+            return $fetch(`/api/getBooks/${query.value}`)
         }
-        return useGetBooks()
+        return $fetch(`/api/getBooks/Harry Potter`)
     },
     staleTime: 60000
 })
@@ -27,7 +27,7 @@ const { data: books, isLoading } = useQuery({
         <p>No Books found</p>
     </div>
     <div v-for="book in books">
-        <NuxtLink :to="`/bookDetails/${book.id}`">
+        <NuxtLink :to="`/bookDetails/${book.id}`" @click="console.log(book)">
             <div class="linkContent">
                 <img :src="book.volumeInfo.imageLinks.smallThumbnail" alt="">
                 <h2>{{ book.volumeInfo.title }}</h2>

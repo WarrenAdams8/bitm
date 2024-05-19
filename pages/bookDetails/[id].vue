@@ -23,7 +23,7 @@ const { data, isLoading } = useQuery({
 })
 
 // convert _rgb[] to css rgb()
-const rgbStyle = computed(() => `rgb(${data.value?.palette.Vibrant._rgb[0]}, ${data.value?.palette.Vibrant._rgb[1]}, ${data.value?.palette.Vibrant._rgb[2]})`);
+const rgbStyle = computed(() => `${data.value?.palette.Vibrant._rgb}`);
 
 function addBookToCart() {
     if (data.value?.book) {

@@ -1,13 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   runtimeConfig: {
-    private: {
-      paddleApi: "",
-    },
     public: {
       paddleSellerId: "",
       paddleToken: "",
     },
+    stripeKey: "",
+    paddleKey: "",
+    webhookSecret: "",
   },
   devtools: { enabled: true },
   modules: [
